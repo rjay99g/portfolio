@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rjay Portofolio</title>
+<meta name="description" content="Developer Portfolio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #14161c;
+    --surface: #1b1e26;
+    --surface-2: #21252f;
+    --border: #2c303c;
+    --text: #e9e7e2;
+    --text-muted: #8c90a0;
+    --text-faint: #5c6070;
+    --accent: #e8a33d;     
+    --accent-soft: #e8a33d22;
+    --accent-2: #6fb8bd;   
+    --accent-2-soft: #6fb8bd22;
+    --accent-3: #b98cf0;    
+    --accent-3-soft: #b98cf022;
+    --accent-4: #a7a2a2;    
+    --accent-5: #106422;     
+    --radius-s: 5px;
+    --radius-m: 8px;
+    --radius-l: 14px;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --maxw: 1080px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .mono{ font-family:var(--font-mono); }
+  ::selection{ background:var(--accent); color:#1a1300; }
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:3px;
+  }
+  body{
+    background-image:
+      radial-gradient(circle at 15% 0%, #1e2230 0%, transparent 45%),
+      radial-gradient(circle at 85% 20%, #1a2a2b 0%, transparent 40%);
+    background-attachment:fixed;
+  }
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,22,28,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:15px;
+    text-decoration:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand-dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .nav-links{
+    display:flex; gap:28px; list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--text-muted);
+    font-size:14px;
+    font-weight:500;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-toggle{
+    display:none;
+    background:none; border:1px solid var(--border);
+    color:var(--text); border-radius:var(--radius-s);
+    padding:8px 10px; font-family:var(--font-mono); cursor:pointer;
+  }
+
+  @media (max-width:680px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      max-height:0; overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .nav-links.is-open{ max-height:240px; }
+    .nav-links a{
+      padding:14px 24px;
+      border-top:1px solid var(--border);
+      display:block;
+    }
+    .nav-toggle{ display:block; }
+  }
+  .hero{
+    padding:110px 0 80px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent-2);
+    margin:0 0 18px;
+  }
+  .eyebrow::before{ content:''; color:var(--text-faint); }
+
+  .hero-code{
+    font-family:var(--font-mono);
+    font-size:clamp(22px, 4.4vw, 40px);
+    line-height:1.5;
+    font-weight:500;
+    margin:0 0 26px;
+    white-space:pre-wrap;
+  }
+  .tok-kw{ color:var(--accent-3); }
+  .tok-str{ color:var(--accent-2); }
+  .tok-prop{ color:var(--text); }
+  .tok-punc{ color:var(--text-faint); }
+  .cursor{
+    display:inline-block; width:.55ch; background:var(--accent);
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero-desc{
+    max-width:560px;
+    color:var(--text-muted);
+    font-size:16.5px;
+    margin:0 0 34px;
+  }
+
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--font-sans);
+    font-weight:600;
+    font-size:14.5px;
+    padding:13px 22px;
+    border-radius:var(--radius-s);
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    cursor:pointer; border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{ background:var(--accent); color:#1a1300; }
+  .btn-primary:hover{ background:#f0af52; }
+  .btn-ghost{ background:transparent; color:var(--text); border-color:var(--border); }
+  .btn-ghost:hover{ border-color:var(--text-faint); }
+  section{ padding:70px 0; }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:34px; flex-wrap:wrap; gap:10px;
+  }
+  .section-title{
+    font-family:var(--font-mono);
+    font-size:22px; font-weight:600; margin:0;
+  }
+  .section-sub{ color:var(--text-muted); font-size:14.5px; margin:0; }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+    gap:20px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--card-color, var(--accent));
+    border-radius:var(--radius-m);
+    overflow:hidden;
+    cursor:pointer;
+    text-align:left;
+    padding:0;
+    color:var(--text);
+    font:inherit;
+    display:block;
+    width:100%;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 28px -14px rgba(0,0,0,.5);
+  }
+  .card-thumb{
+    width:100%; aspect-ratio:16/10; object-fit:cover;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .card-body{ padding:16px 18px 18px; }
+  .card-path{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin:0 0 8px;
+  }
+  .card-title{
+    font-size:16.5px; font-weight:600; margin:0 0 8px;
+  }
+  .card-tagline{
+    font-size:13.5px; color:var(--text-muted);
+    margin:0 0 14px;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .tag-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .tag{
+    font-family:var(--font-mono);
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:4px;
+    background:var(--tag-bg, var(--accent-soft));
+    color:var(--tag-color, var(--accent));
+  }
+  .contact-box{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-l);
+    padding:40px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap;
+  }
+  .contact-links{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  footer{
+    border-top:1px solid var(--border);
+    padding:30px 0;
+    color:var(--text-faint);
+    font-size:13px;
+    font-family:var(--font-mono);
+  }
+  .overlay{
+    position:fixed; inset:0; z-index:100;
+    background:var(--bg);
+    overflow-y:auto;
+    opacity:0; visibility:hidden; transform:translateY(14px);
+    transition:opacity .22s ease, transform .22s ease, visibility .22s;
+  }
+  .overlay.is-open{
+    opacity:1; visibility:visible; transform:translateY(0);
+  }
+  .overlay-inner{
+    max-width:var(--maxw); margin:0 auto; padding:28px 24px 90px;
+  }
+  .overlay-top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 0 26px;
+    position:sticky; top:0; background:var(--bg); z-index:2;
+  }
+  .close-btn{
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text); width:38px; height:38px; border-radius:50%;
+    cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center;
+  }
+  .close-btn:hover{ border-color:var(--text-faint); }
+  .breadcrumb{
+    font-family:var(--font-mono); font-size:13px; color:var(--text-faint);
+  }
+  .breadcrumb b{ color:var(--text); font-weight:600; }
+
+  .detail-hero{
+    width:100%; aspect-ratio:21/9; object-fit:cover;
+    border-radius:var(--radius-l);
+    border:1px solid var(--border);
+    margin-bottom:30px;
+  }
+  .detail-title{
+    font-size:clamp(26px,4vw,38px); margin:0 0 10px;
+  }
+  .detail-tagline{ color:var(--text-muted); font-size:16px; margin:0 0 24px; max-width:640px; }
+
+  .meta-row{
+    display:flex; gap:28px; flex-wrap:wrap;
+    padding:20px 0; margin-bottom:28px;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .meta-item{}
+  .meta-label{
+    font-family:var(--font-mono); font-size:11px; color:var(--accent-4);
+    margin:0 0 4px;
+  }
+  .meta-label::before{ content:''; color:var(--text-faint); }
+  .meta-value{ font-size:14.5px; margin:0; }
+
+  .detail-desc{
+    max-width:680px; color:var(--text); font-size:15.5px; margin-bottom:36px;
+  }
+  .detail-desc p{ margin:0 0 16px; }
+
+  .gallery{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+    gap:14px; margin-bottom:36px;
+  }
+  .gallery img{
+    width:100%; aspect-ratio:4/3; object-fit:cover;
+    border-radius:var(--radius-m); border:1px solid var(--border);
+  }
+
+  .detail-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+.contact-info{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.contact-avatar{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--border);
+    flex-shrink:0;
+}
+.review-list{
+  display:flex; flex-direction:column; gap:12px;
+}
+.review-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-m);
+  padding:16px 18px;
+  display:flex; gap:14px;
+}
+.review-avatar{
+  width:40px; height:40px; border-radius:50%;
+  object-fit:cover; flex-shrink:0;
+}
+.review-body{ flex:1; min-width:0; }
+.review-header{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  margin-bottom:4px;
+}
+.review-name{
+  font-weight:600; font-size:15px; color:var(--text);
+}
+.review-badge{
+  font-family:var(--font-mono);
+  font-size:10.5px; font-weight:600;
+  padding:2px 7px; border-radius:4px;
+  background:var(--accent-3-soft); color:var(--accent-3);
+}
+.review-time{
+  font-size:12px; color:var(--text-faint);
+}
+.review-text{
+  font-size:14px; color:var(--text-muted);
+  line-height:1.55; margin:0;
+}
+  @media (max-width:640px){
+    .hero{ padding:80px 0 56px; }
+    section{ padding:50px 0; }
+    .contact-box{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="brand"><span class="brand-dot"></span><span class="mono" style="color:var(--text-faint)">dev.</span></span>rjay</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open Menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#expig">Experiences</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header class="hero wrap" id="home">
+    <h1 class="hero-code mono" id="heroCode"></h1>
+    <p class="hero-desc">
+      Welcome to my Portfolio!<br>
+      I am Jayden, a Luau and JavaScript developer with <strong>4</strong> years of experience in Roblox Development.<br>
+      I've worked in various companies, so click experience to view my past <strong>Experiences</strong> and <strong>Projects</strong>.
+    </p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contacts" class="btn btn-ghost">Contact Me</a>
+      <a href="#expig" class="btn btn-ghost">Past Experience</a>
+      <a href="https://1drv.ms/f/c/a2992874387eff89/IgD9vBhVsImoSJXTYghggxFwAeZ7OqyeG46ErXCi1Ithn-8" class="btn btn-ghost">and my videos...</a>
+    </div>
+  </header>
+<section class="wrap" id="projects">
+    <div class="section-head">
+        <h2 class="section-title mono">projects</h2>
+        <p class="section-sub">Click a card to watch a project!</p>
+    </div>
+    <div class="grid" id="projectGrid"></div>
+</section>
+<section class="wrap" id="reviews">
+    <div class="section-head">
+        <h2 class="section-title mono"><br>reviews</h2>
+        <p class="section-sub">What people say about working with me.</p>
+    </div>
+    <div class="review-list" id="reviewGrid"></div>
+</section>
+<section class="wrap" id="expig">
+    <div class="section-head">
+        <h2 class="section-title mono"><br>experiences</h2>
+        <p class="section-sub">Take a look at my past.</p>
+    </div>
+    <div class="grid" id="experienceGrid"></div>
+</section>
+  <section class="wrap" id="contacts">
+    <div class="section-head">
+      <h2 class="section-title mono"><br>contacts</h2>
+    </div>
+    <div class="contact-box">
+       <img
+        src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-C68DE8CE88C6BB75D00BF3FAA7184CF1-Png/150/150/AvatarHeadshot/Webp/noFilter"
+        alt="Roblox Avatar"
+        class="contact-avatar">
+    <div>
+        <p class="card-path mono">Need a commision?</p>
+        <p style="font-size:17px; margin:0;">Would you like a commision or a project with me?</p>
+        <p style="font-size:14px; margin:0;">Discord: dev.rjay</p>
+    </div>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="https://discord.gg/2dqwvd3qy">My Company</a>
+        <a class="btn btn-ghost" href="https://github.com/rjayxzy" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://www.roblox.com/users/2285248954/profile" target="_blank" rel="noopener">Roblox</a>
+      </div>
+    </div>
+  </section>
+  <footer class="wrap">
+    <p>© <span id="year"></span> js by rjay99g 💗</p>
+  </footer>
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="overlay-inner">
+      <div class="overlay-top">
+        <p class="breadcrumb" id="breadcrumb">/rjay/crazythings/<b id="breadcrumbName"></b></p>
+        <button class="close-btn" id="closeBtn" aria-label="Close">✕</button>
+      </div>
+      <img class="detail-hero" id="detailHero" alt="">
+      <h2 class="detail-title" id="detailTitle"></h2>
+      <p class="detail-tagline" id="detailTagline"></p>
+
+      <div class="meta-row">
+        <div class="meta-item">
+          <p class="meta-label">Languages</p>
+          <p class="meta-value" id="detailRole"></p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Year</p>
+          <p class="meta-value" id="detailYear"></p>
+        </div>
+      </div>
+
+      <div class="detail-desc" id="detailDesc"></div>
+
+      <div class="gallery" id="detailGallery"></div>
+
+      <div class="detail-actions" id="detailActions"></div>
+    </div>
+  </div>
+
+<script>
+const uhhh = [
+  {
+    id: "restocking-pallet",
+    title: "Restocking Pallet",
+    tagline: "Fully working restocking pallet.",
+    category: "backend",
+    role: "Luau.",
+    year: "2025",
+    time: "100+",
+    description: [
+      "An advanced, customizable restocking system, ideal for Ro-Shops.",
+      "Animated pallet with welds, boxes, restock items, and GUIs for out-of-order states. Over 2000 lines of code.",
+      "Auto-restocks if nobody is in-game."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/b1sSj8M.png",
+      "https://i.imgur.com/QceBmi4.png",
+      "https://i.imgur.com/H3JFEMr.png"
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "smart-cuffs",
+    title: "smartCuffs",
+    tagline: "smartCuffs",
+    category: "fullstack",
+    role: "Luau.",
+    year: "2026",
+    time: "60+",
+    description: [
+      "Cuff system with DRS integration, various APIs, and compatibility with BAe and Adonis Admin.",
+      "Whitelist for players.",
+      "View unpaid items, logs, and moderation tools (ban/kick/mute/respawn).",
+      "Anti-Cheat system.",
+      "GUI uses UDim2.Scale for every type of device."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/AWJDaLW.png",
+      "https://i.imgur.com/sUFgTqz.png",
+      "https://i.imgur.com/uI6bACn.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "recycling-machine",
+    title: "Recycling Machine",
+    tagline: "Fully working recycling machine.",
+    category: "fullstack",
+    role: "Luau.",
+    year: "2025",
+    time: "60+",
+    description: [
+      "Fully working recycling machine.",
+      "You simply insert a bottle, and it stores data in a DataStore, such as points or usage. Over 1000 lines of code."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/xJXgxCc.png",
+      "https://i.imgur.com/DrJm9Hh.png",
+      "https://i.imgur.com/IbKn9tQ.png"
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "trainer-panel",
+    title: "Trainer Panel",
+    tagline: "Fully working trainer panel.",
+    category: "frontend",
+    role: "Luau & JavaScript.",
+    year: "2024",
+    time: "48+",
+    description: [
+      "A trainer panel with a built-in anti-cheat.",
+      "Unlock/lock doors, open different areas, auto-uniform for players (removes bulky accessories), Auto-Team, Auto-Teleport, and a promotion system for those who pass.",
+      "Customizable background with copyright-free images."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/Gqnp2fY.png",
+      "https://i.imgur.com/MxIdawJ.png",
+      "https://i.imgur.com/GilAtQf.png"
+    ],
+    codeUrl: ""
+  },
+    {
+    id: "interview-centre",
+    title: "Interview Centre",
+    tagline: "Fully working interview centre.",
+    category: "backend",
+    role: "Luau & JavaScript.",
+    year: "2024",
+    time: "12+",
+    description: [
+      "An advanced system for interviewing trainees, with camera animations, a custom-built environment, and an answer detector.",
+      "Connected to an encrypted API that ranks the person as trainee only, to avoid abuse. 501 lines of code"
+    ],
+    demoUrl: [
+      "https://i.imgur.com/ebPyxcs.png",
+      "https://i.imgur.com/6CJuoTn.png",
+      "https://i.imgur.com/IybTdDJ.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "leaderboard",
+    title: "Leaderboard Boarding",
+    tagline: "Leaderboard Boarding",
+    category: "frontend",
+    role: "Luau & JavaScript",
+    year: "2024-2025",
+    time: "10+",
+    description: [
+      "A working leaderboard with a DataStore and TextChatService.",
+      "Shows top players by Robux donations.",
+      "Different effects per prize tier (100/1000/5000...).",
+      "JavaScript API for retrieving gamepasses."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/MdeHuMN.png",
+      "https://i.imgur.com/vYxjWME.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "departure-board",
+    title: "Departure Board",
+    tagline: "Departure Board",
+    category: "backend",
+    role: "Luau.",
+    year: "2026",
+    time: "6+",
+    description: [
+      "A fully working departure system with a Windows 95 theme.",
+      "Features: flight name, destinations, remarks, STD & ETD, local timezone (universal time zone), delete flights, and synchronization across multiple monitors."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/aWBsetM.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "gate-system",
+    title: "Gate System",
+    tagline: "A gate system inspired by Malaysia's airports.",
+    category: "frontend",
+    role: "Luau & JS API for Discord.",
+    year: "2026",
+    time: "4+",
+    description: [
+      "A gate system inspired by Malaysia's airports.",
+      "Features: local time, flight name, arrival location, status (delayed, cancelled, completed), gate status (boarding, final call), and customizable gate number."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/GLoxGHF.png",
+      "https://i.imgur.com/xLbyPMd.png",
+      "https://i.imgur.com/mRAbtQF.png"
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "windows-xp",
+    title: "Windows XP",
+    tagline: "Windows XP computer.",
+    category: "fullstack",
+    role: "Luau",
+    year: "2023",
+    time: "4+",
+    description: [
+      "A fully working in-game computer running a Windows XP theme.",
+      "Includes custom software for handling concerts and events.",
+      "Confetti, rain, snow, lava, fog, thunder, fire, special buildings, and a logging system, with a built-in leaderboard."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/w9gKx0E.png",
+      "https://i.imgur.com/9ksyCAi.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "zone-system",
+    title: "Zone System",
+    tagline: "Zone System.",
+    category: "backend",
+    role: "Luau",
+    year: "2023",
+    time: "2+",
+    description: [
+      "My first project.",
+      "A zone system that stores players' points earned by completing tasks, to progress to the next zone.",
+      "If the server crashes or shuts down, data is saved.",
+      "Points are editable through an Adonis Admin integration."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/NF7a6ck.png",
+      "https://i.imgur.com/jWYZzVR.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "swiss-gate",
+    title: "Swiss Gate",
+    tagline: "Swiss gate system.",
+    category: "backend",
+    role: "Luau.",
+    year: "2026",
+    time: "2+",
+    description: [
+      "Swiss airport gate system.",
+      "Designed to scale horizontally, with a shared gui for all the screens."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/C1EeexU.png",
+      "https://i.imgur.com/vIU5wTc.png",
+      "https://i.imgur.com/2eUSQKk.png"
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "placeable-signs",
+    title: "Placeable Signs",
+    tagline: "Fully working placeable signs.",
+    category: "frontend",
+    role: "Luau.",
+    year: "2026",
+    time: "2+",
+    description: [
+      "Fully working placeable signs.",
+      "Follows the mouse position and uses a raycast to detect the surface below, moving the sign's parent in the Workspace and placing it above the ground."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/UiYKfwU.png",
+      "https://i.imgur.com/9bZfo7U.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "reflective-vests",
+    title: "Reflective Vests",
+    tagline: "Reflective Vests",
+    category: "fullstack",
+    role: "Luau.",
+    year: "2025",
+    time: "2+",
+    description: [
+      "Re-scripted the reflective vests to work with a proximity prompt.",
+      "Compatible with R6 & R15.",
+      "Whitelist support."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/e4YrP64.png",
+      "https://i.imgur.com/G6WUrbF.png",
+    ],
+    codeUrl: ""
+  },
+  {
+    id: "booster-system",
+    title: "Booster Perks",
+    tagline: "Booster system.",
+    category: "fullstack",
+    role: "Luau, Node.js & JavaScript.",
+    year: "2024",
+    time: "1+",
+    description: [
+      "A Discord bot that uses a database (marcsync) to detect who boosts the server.",
+      "Detects if a person stops boosting or leaves the server, and removes their perks immediately.",
+      "Includes anti-rate-limit protection.",
+      "Gives boosters a perk nametag and a tool."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/edrcyyA.png",
+      "https://i.imgur.com/qdpD3qE.png",
+      "https://i.imgur.com/CQi26Li.png",
+    ],
+    codeUrl: ""
+  },
+];
+const reviews = [ // all those reviews are real i am not kidding
+  {
+    name: "kaden - frixion CEO",
+    badge: "⚡ TECH",
+    time: "01/06/2026",
+    avatar: "https://i.imgur.com/zPkP5ya.png",
+    text: "Rjay is a professional and hard-working scripter who always goes the extra mile to ensure his work is completed with utmost satisfaction. I really appreciate his work and without him my company would be in a different place."
+  },
+    {
+    name: "benjii.zyt - FreshWay Shopping CEO",
+    badge: "⭐ vatsim",
+    time: "23/05/2026",
+    avatar: "https://i.imgur.com/wz9G0zu.jpeg",
+    text: "Rjay is an excellent developer. Thanks to his work, my projects have always run smoothly and met a high standard of quality. He works with precision, delivers on time, and consistently completes his tasks with professionalism and attention to detail, thanks!"
+  },
+     {
+    name: "envit - Commisions",
+    badge: "🔑 JX",
+    time: "10/01/2026",
+    avatar: "https://i.imgur.com/WAtADhC.png",
+    text: "Excellent job, Rjay! Amazing attention to detail, and the systems work exactly as expected. Keep it up!"
+  },
+ 
+];
+
+const reviewGrid = document.getElementById("reviewGrid");
+function renderReviews(){
+  reviewGrid.innerHTML = "";
+  reviews.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML = `
+      <img class="review-avatar" src="${r.avatar}" alt="${r.name}">
+      <div class="review-body">
+        <div class="review-header">
+          <span class="review-name">${r.name}</span>
+          ${r.badge ? `<span class="review-badge">${r.badge}</span>` : ""}
+          <span class="review-time">${r.time}</span>
+        </div>
+        <p class="review-text">${r.text}</p>
+      </div>
+    `;
+    reviewGrid.appendChild(card);
+  });
+}
+renderReviews();
+const expig = [
+  {
+    company: "frixion",
+    owner: "@kdn_ae",
+    role: "Product Executive & Senior Developer",
+    period: "2025 - Present",
+    description: "Asset Developer, UI Designer, scripter.",
+    stack: ["Luau", "Roblox Studio", "Figma"],
+    category: "backend"
+  },
+
+  {
+    company: "orbitaly",
+    owner: "@dev.rjay",
+    role: "Executive Director",
+    period: "2026 - Present",
+    description: "My new company, Roblox assets & commissions.",
+    stack: ["Luau", "ProfileService"],
+    category: "frontend"
+  },
+
+  {
+    company: "Lumora",
+    owner: "@MichaelO_Leary",
+    role: "Luau Programmer & GUI Designer",
+    period: "2025 - Present",
+    description: "Developed commissions for Roblox games and airlines.",
+    stack: ["Luau", "JavaScript"],
+    category: "fullstack"
+  },
+
+  {
+    company: "South Pacific",
+    owner: "@EagerJakez",
+    role: "Trial Developer (Passenger)",
+    period: "2026 - Present",
+    description: "Creating assets for South Pacific.",
+    stack: ["Luau", "JavaScript"],
+    category: "fullstack"
+  },
+  {
+    company: "Ryanair TM",
+    owner: "@MichaelO_Leary",
+    role: "Ex- SEP Instructor & Ground Supervisor.",
+    period: "2025 - 2026",
+    description: "Security Procedures.",
+    stack: ["Luau", "JavaScript"],
+    category: "backend"
+  },
+    {
+    company: "TUI airways",
+    owner: "@Progamerzzzz8447",
+    role: "Ex- Ground Crew.",
+    period: "2024 - 2025",
+    description: "The ground crew of the company.",
+    stack: ["Luau", "JavaScript"],
+    category: "frontend"
+  },
+  {
+    company: "Swift Shopping",
+    owner: "@CharlieOMG303",
+    role: "Ex-Senior Developer",
+    period: "2024 - 2026",
+    description: "Leading the developer department.",
+    stack: ["Luau", "JavaScript"],
+    category: "frontend"
+  },
+
+  {
+    company: "Avaga",
+    owner: "@myfire13",
+    role: "Ex-Developer",
+    period: "2024 - 2025",
+    description: "Internal designer, API programmer (JS).",
+    stack: ["Luau", "JavaScript"],
+    category: "fullstack"
+  },
+
+  {
+    company: "Romart",
+    owner: "@ll1uke",
+    role: "Ex-Junior Trainer",
+    period: "2023 - 2024",
+    description: "Training and supporting new trainees.",
+    stack: ["Luau", "JavaScript"],
+    category: "backend"
+  },
+
+  {
+    company: "Boombablox",
+    owner: "@frolinis",
+    role: "Ex-Developer",
+    period: "2023 - 2024",
+    description: "Plugin development.",
+    stack: ["Luau", "JavaScript"],
+    category: "backend"
+  },
+
+  {
+    company: "Washiez",
+    owner: "@frolinis",
+    role: "Shift Leader",
+    period: "2022 - Present",
+    description: "Handling certain situations.",
+    stack: ["Luau", "JavaScript"],
+    category: "frontend"
+  },
+];
+const projectGrid = document.getElementById("projectGrid");
+const experienceGrid = document.getElementById("experienceGrid");
+  const colors = {
+    fullstack: { color: "var(--accent)",   soft: "var(--accent-soft)" },
+    frontend:  { color: "var(--accent-2)", soft: "var(--accent-2-soft)" },
+    backend:   { color: "var(--accent-3)", soft: "var(--accent-3-soft)" },
+  };
+  function holderr(label, seed){
+    const palette = ["#e8a33d","#6fb8bd","#b98cf0","#e07a5f","#81b29a"];
+    const c1 = palette[seed % palette.length];
+    const c2 = palette[(seed + 2) % palette.length];
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="${c1}"/>
+            <stop offset="100%" stop-color="${c2}"/>
+          </linearGradient>
+        </defs>
+        <rect width="800" height="500" fill="#1b1e26"/>
+        <rect width="800" height="500" fill="url(#g)" opacity="0.18"/>
+        <text x="50%" y="52%" font-family="monospace" font-size="34" fill="${c1}"
+          text-anchor="middle" dominant-baseline="middle">${label}</text>
+      </svg>`; // thanks jam3roque <3
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
+  const grid = document.getElementById("projectGrid");
+  function renderreneded(){
+    grid.innerHTML = "";
+    uhhh.forEach((p, i) => {
+      const cat = colors[p.category] || colors.fullstack;
+      const card = document.createElement("button");
+      card.className = "card";
+      card.style.setProperty("--card-color", cat.color);
+      card.setAttribute("aria-label", `Open the project ${p.title}`);
+card.innerHTML = `
+  <img class="card-thumb" src="${(Array.isArray(p.demoUrl) && p.demoUrl[0]) ? p.demoUrl[0] : holderr(p.title, i)}">
+  <div class="card-body">
+    <h3 class="card-title">${p.title}</h3>
+    <p class="card-path mono">${p.time} hours</p>
+  </div>
+`;
+      card.addEventListener("click", () => projec(p.id));
+      grid.appendChild(card);
+    });
+  }
+  const overlay = document.getElementById("overlay");
+  const ui = {
+    breadcrumbName: document.getElementById("breadcrumbName"),
+    hero: document.getElementById("detailHero"),
+    title: document.getElementById("detailTitle"),
+    tagline: document.getElementById("detailTagline"),
+    role: document.getElementById("detailRole"),
+    year: document.getElementById("detailYear"),
+    desc: document.getElementById("detailDesc"),
+    gallery: document.getElementById("detailGallery"),
+    actions: document.getElementById("detailActions"),
+  };
+  let focused = null;
+  function projec(id){
+    const p = uhhh.find(x => x.id === id);
+    if(!p) return;
+    const i = uhhh.indexOf(p);
+
+    ui.breadcrumbName.textContent = p.id;
+    ui.hero.src = (p.demoUrl && p.demoUrl[0]) ? p.demoUrl[0] : holderr(p.title, i);
+    ui.hero.alt = p.title;
+    ui.title.textContent = p.title;
+    ui.tagline.textContent = p.tagline;
+    ui.role.textContent = p.role;
+    ui.year.textContent = p.year;
+    ui.desc.innerHTML = p.description.map(par => `<p>${par}</p>`).join("");
+
+const galleryImages = (Array.isArray(p.demoUrl) && p.demoUrl.length)
+  ? p.demoUrl
+  : [holderr(p.title + " 01", i+1)];
+ui.gallery.innerHTML = galleryImages.map(src => `
+  <img src="${src}" alt="Immagine di ${p.title}">
+`).join("");
+
+    let actionsHtml = "";
+    ui.actions.innerHTML = actionsHtml;
+
+    focused = document.activeElement;
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    history.pushState({ project: id }, "", "#project/" + id);
+    document.getElementById("closeBtn").focus();
+  }
+
+  function noproject(){
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if(location.hash.startsWith("#project/")) history.pushState({}, "", "#projects");
+    if(focused) focused.focus();
+  }
+
+  document.getElementById("closeBtn").addEventListener("click", noproject);
+  overlay.addEventListener("click", (e) => { if(e.target === overlay) noproject(); });
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && overlay.classList.contains("is-open")) noproject();
+  });
+  window.addEventListener("popstate", () => {
+    if(!location.hash.startsWith("#project/")) noproject();
+  });
+
+  function openFromHash(){
+    const m = location.hash.match(/^#project\/(.+)$/);
+    if(m) projec(m[1]);
+  }
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
+  navToggle.addEventListener("click", () => navLinks.classList.toggle("is-open"));
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("is-open")));
+
+
+function OMGCOOLANIMATION() {
+    const el = document.getElementById("heroCode");
+    const luau = [
+        { t: "local ", c: "tok-kw" },
+        { t: "rjayxzy", c: "tok-prop" },
+        { t: " = {\n  [\"Developer\"] = ", c: "tok-punc" },
+        { t: "\"dev.rjay\"", c: "tok-str" },
+        { t: ",\n  [\"Languages\"] = ", c: "tok-punc" },
+        { t: "\"Luau Developer\"", c: "tok-str" },
+        { t: ",\n  [\"Extra\"] = ", c: "tok-punc" },
+        { t: "\"Video Maker\"", c: "tok-str" },
+        { t: "\n}", c: "tok-punc" },
+        { t: "\n-- btw welcome!", c: "tok-punc" }
+    ];
+    const js = [
+        { t: "const ", c: "tok-kw" },
+        { t: "rjayxzy", c: "tok-prop" },
+        { t: " = {\n  username: ", c: "tok-punc" },
+        { t: "\"dev.rjay\"", c: "tok-str" },
+        { t: ",\n  languages: ", c: "tok-punc" },
+        { t: "\"JavaScript Developer\"", c: "tok-str" },
+        { t: ",\n  extra: ", c: "tok-punc" },
+        { t: "\"Video Maker\"", c: "tok-str" },
+        { t: "\n}", c: "tok-punc" },
+        { t: "\n// btw welcome!", c: "tok-punc" }
+    ];
+    let current = luau;
+    function build(parts, length) {
+        let html = "";
+        let shown = 0;
+        for (const p of parts) {
+            if (shown + p.t.length <= length) {
+                html += `<span class="${p.c}">${p.t}</span>`;
+                shown += p.t.length;
+            } else {
+                html += `<span class="${p.c}">${p.t.slice(0, Math.max(0, length - shown))}</span>`;
+                break;
+            }
+        }
+        el.innerHTML = html + '<span class="cursor">&nbsp;</span>';
+    }
+    function type(parts, callback) {
+        const text = parts.map(x => x.t).join("");
+        let i = 0;
+        function next() {
+            build(parts, i);
+            if (i < text.length) {
+                i++;
+                setTimeout(next, 26);
+            } else {
+                callback(text.length);
+            }
+        }
+        next();
+    }
+    function erase(parts, length, callback) {
+        let i = length;
+        function next() {
+            build(parts, i);
+            if (i > 0) {
+                i--;
+                setTimeout(next, 15);
+            } else {
+                callback();
+            }
+        }
+        next();
+    }
+    function loop() {
+        type(current, len => {
+            setTimeout(() => {
+                erase(current, len, () => {
+                    current = current === luau ? js : luau;
+                    loop();
+                });
+            }, 3000);
+        });
+    }
+    loop();
+}
+  function render2() {
+    experienceGrid.innerHTML = "";
+    expig.forEach(exp => {
+        const cat = colors[exp.category] || colors.fullstack;
+
+        const card = document.createElement("div"); 
+        card.className = "card";
+        card.style.setProperty("--card-color", cat.color);
+
+        card.innerHTML = `
+            <div class="card-body">
+                <p class="card-path mono">${exp.period}</p>
+                <h3 class="card-title">${exp.company}</h3>
+                <p class="card-path mono">${exp.owner}</p>
+                <p class="card-tagline">
+                    <strong>${exp.role}</strong><br>
+                    ${exp.description}
+                </p>
+            </div>
+        `;
+        experienceGrid.appendChild(card); // ty again jam3roque
+    });
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderreneded();      
+render2(); 
+OMGCOOLANIMATION();
+openFromHash();
+</script>
+</body>
+</html>
+html & css by jam3roque <3
