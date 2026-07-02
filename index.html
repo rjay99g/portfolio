@@ -377,6 +377,44 @@
   font-size:14px; color:var(--text-muted);
   line-height:1.55; margin:0;
 }
+.lightbox{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(10,11,15,0.92);
+  display:flex; align-items:center; justify-content:center;
+  padding:40px;
+  opacity:0; visibility:hidden;
+  transition:opacity .2s ease, visibility .2s;
+  cursor:zoom-out;
+}
+.lightbox.is-open{
+  opacity:1; visibility:visible;
+}
+.lightbox-img{
+  max-width:min(90vw, 1100px);
+  max-height:90vh;
+  width:auto; height:auto;
+  object-fit:contain;
+  border-radius:var(--radius-m);
+  border:1px solid var(--border);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+  transform:scale(0.95);
+  transition:transform .2s ease;
+}
+.lightbox.is-open .lightbox-img{
+  transform:scale(1);
+}
+.lightbox-close{
+  position:fixed; top:20px; right:24px;
+  background:var(--surface); border:1px solid var(--border);
+  color:var(--text); width:40px; height:40px; border-radius:50%;
+  cursor:pointer; font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  z-index:201;
+}
+.lightbox-close:hover{ border-color:var(--text-faint); }
+.gallery img{
+  cursor:zoom-in;
+}
   @media (max-width:640px){
     .hero{ padding:80px 0 56px; }
     section{ padding:50px 0; }
@@ -384,6 +422,10 @@
   }
 </style>
 </head>
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <img class="lightbox-img" id="lightboxImg" alt="">
+</div>
 <body>
   <nav class="nav">
     <div class="nav-inner">
@@ -487,6 +529,25 @@
 
 <script>
 const uhhh = [
+    {
+    id: "departure-board",
+    title: "Departure Board",
+    tagline: "Departure Board",
+    category: "backend",
+    role: "Luau.",
+    year: "2026",
+    time: "6+ (NEW)",
+    description: [
+      "A fully working departure system with a Windows 95 theme.",
+      "Features: flight name, destinations, remarks, STD & ETD, local timezone (universal time zone), delete flights, and synchronization across multiple monitors."
+    ],
+    demoUrl: [
+      "https://i.imgur.com/OA15sGF.png",
+      "https://i.imgur.com/aWBsetM.png",
+      "https://i.imgur.com/NV9qWB1.png",
+    ],
+    codeUrl: ""
+  },
   {
     id: "restocking-pallet",
     title: "Restocking Pallet",
@@ -604,23 +665,6 @@ const uhhh = [
     demoUrl: [
       "https://i.imgur.com/MdeHuMN.png",
       "https://i.imgur.com/vYxjWME.png",
-    ],
-    codeUrl: ""
-  },
-  {
-    id: "departure-board",
-    title: "Departure Board",
-    tagline: "Departure Board",
-    category: "backend",
-    role: "Luau.",
-    year: "2026",
-    time: "6+",
-    description: [
-      "A fully working departure system with a Windows 95 theme.",
-      "Features: flight name, destinations, remarks, STD & ETD, local timezone (universal time zone), delete flights, and synchronization across multiple monitors."
-    ],
-    demoUrl: [
-      "https://i.imgur.com/aWBsetM.png",
     ],
     codeUrl: ""
   },
@@ -753,8 +797,8 @@ const uhhh = [
       "Gives boosters a perk nametag and a tool."
     ],
     demoUrl: [
-      "https://i.imgur.com/edrcyyA.png",
       "https://i.imgur.com/qdpD3qE.png",
+      "https://i.imgur.com/edrcyyA.png",
       "https://i.imgur.com/CQi26Li.png",
     ],
     codeUrl: ""
@@ -972,6 +1016,24 @@ card.innerHTML = `
     gallery: document.getElementById("detailGallery"),
     actions: document.getElementById("detailActions"),
   };
+  const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
+function openLightbox(src, alt){
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || "";
+  lightbox.classList.add("is-open");
+}
+function closeLightbox(){
+  lightbox.classList.remove("is-open");
+}
+document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => {
+  if(e.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+});
   let focused = null;
   function projec(id){
     const p = uhhh.find(x => x.id === id);
@@ -993,6 +1055,9 @@ const galleryImages = (Array.isArray(p.demoUrl) && p.demoUrl.length)
 ui.gallery.innerHTML = galleryImages.map(src => `
   <img src="${src}" alt="Immagine di ${p.title}">
 `).join("");
+ui.gallery.querySelectorAll("img").forEach(img => {
+  img.addEventListener("click", () => openLightbox(img.src, img.alt));
+});
 
     let actionsHtml = "";
     ui.actions.innerHTML = actionsHtml;
