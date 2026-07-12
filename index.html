@@ -539,9 +539,14 @@ const uhhh = [
     year: "2026",
     time: "12+ (NEW)",
     description: [
-      "A fully working Game Hub, syncronized with Adonis Admin.",
+      "A fully working Game Hub, synchronized with Adonis Admin.",
       "You can open or close the server from the Restricted Server (Airport), so players can join from the Game Hub.",
-      "Detects if a Restricted Server is open or no.",
+      "Detects whether a Restricted Server is open or not.",
+      "Automatically routes players to an active server instead of spawning duplicates.",
+      "Uses DataStore-backed heartbeats to track live server status in real time.",
+      "Falls back gracefully to a new server if none are currently active.",
+      "Built with Reserved Servers for secure, invite-only access.",
+      "Seamless integration with existing Adonis Admin permissions and commands.",
     ],
     demoUrl: [
       "https://i.imgur.com/exN3i0f.png",
